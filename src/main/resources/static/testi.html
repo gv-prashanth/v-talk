@@ -1,54 +1,38 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xml:lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>V-Talk</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="css/default.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="content-type"
+	content="text/html; charset=windows-1250">
+<meta name="generator" content="PSPad editor, www.pspad.com">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Vadrin</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css?vad=rin">
+<link rel="stylesheet" type="text/css" href="/css/main.css?vad=rin" />
+<script src="/js/allscripts.js"></script>
 </head>
-<body>
-<!-- start header -->
-<div id="header">
-	<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.html"><span>v</span>talk</a></h1>
-	<h2><a href="index.html"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ur no.1 choice for online communications</a></h2>
-</div>
-<!-- end header -->
-<!-- start page -->
-<div id="page">
-	<!-- start content -->
-	<div id="content">
-		<div class="post">
-			<h2 class="title">Comments</h2>
-			<div class="entry">
-				<p>This part of the website is currently under construction.</p>
+<body onload='validateSenderReceiver();populateChatContainer();'>
+	<div class="main">
+		<div class="navigation">
+			<ul>
+				<li><a href="http://www.vadrin.com">Home</a></li>
+				<li><a class="active" href="#">Private</a></li>		
+			</ul>
+		</div>
+		<div class="content">
+			<div class="logo">
+				<img src="/img/vadrin3.jpg" alt="Vadrin" />
+			</div>
+			<div class="catalog" id="catalog"> 
 			</div>
 		</div>
+		<div class="footer">
+			<div class="search-container">
+			    <input type="text" name="search" id="send" placeholder="Send a message..." onkeydown="send(this)">
+			</div>			
+		</div>  
 	</div>
-	<!-- end content -->
-	<!-- start sidebar -->
-	<div id="sidebar">
-		<ul>
-			<li>
-				<h2>Links</h2>
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="about.html">About V-Talk</a></li>
-					<li><a href="started.html">Getting Started</a></li>
-					<li><a href="download.html">Download</a></li>
-					<li><a href="plans.html">Future Plans</a></li>
-					<li>Comments</li>
-					<li><a href="contactme.html">Contact Me</a></li>
-				</ul>
-			</li>
-		</ul>
-		<div style="clear: both;">&nbsp;</div>
-	</div>
-	<!-- end sidebar -->
-</div>
-<!-- end page -->
-<div id="footer">
-	<p id="legal">Copyright &copy;2009 <a href="http://vadrin.com">G.V.Prashanth.</a> All Rights Reserved.</p>
-</div>
 </body>
 </html>
