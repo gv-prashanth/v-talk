@@ -29,7 +29,7 @@ public class ChatControllerV2 {
   @GetMapping("/chats")
   public List<Chat> getChats(@RequestParam(name = "sender", required = true) String sender,
       @RequestParam(name = "receiver", required = true) String receiver) {
-    return chatService.findBySenderReceiver(sender, receiver);
+    return chatService.findBySenderReceiver(sender.toLowerCase(), receiver.toLowerCase());
   }
 
 }
