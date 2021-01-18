@@ -39,8 +39,8 @@ window.setInterval(function() {
 	populateChatContainer();
 }, 5000);
 
-function send(ele) {
-    if(ele.keyCode == 13 && document.getElementById("send").value !='') {
+function send(e) {
+    if((e.key === 'Enter' || e.keyCode === 13) && document.getElementById("send").value !='') {
 		window.stop();
 		var requestObj = {
 			"message": ele.value,
