@@ -30,20 +30,20 @@ function printResp(resp) {
 			var styleString = 'style="float: left;"';
 			if((new URLSearchParams(window.location.search)).get('sender').toLowerCase() == resp[i].sender.toLowerCase())
 				styleString = 'style="float: right;background-color: #bbbbbb;"';
-			document.getElementById("catalog").innerHTML += '<div class="square" '+styleString+'> <div class="repoDesc"> <p> <b>'+resp[i].sender.toUpperCase()+'</b>: '+resp[i].message+'</p> </div> </div>';
+			document.getElementById("catalog").innerHTML += '<div class="square" '+styleString+'> <div class="repoDesc"> <p> <b>'+resp[i].sender.toUpperCase()+'</b>: '+resp[i].message+'</p> </div> <div class="repoDesc" style="float:right;"><p>'+timeSince(Date.parse(resp[i].createdOn))+'</p></div> </div>';
 		}
 	}
 }
 
 window.setInterval(function() {
 	populateChatContainer();
-}, 5000);
+}, 10000);
 
-function send(e) {
-    if((e.key === 'Enter' || e.keyCode === 13) && document.getElementById("send").value !='') {
-		window.stop();
+function send() {
+    if(document.getElementById("send").value !='') {
+		document.getElementById("send").disabled = true;
 		var requestObj = {
-			"message": ele.value,
+			"message": document.getElementById("send").value,
 			"sender": (new URLSearchParams(window.location.search)).get('sender'),
 			"receiver": (new URLSearchParams(window.location.search)).get('receiver')
 		};
@@ -53,10 +53,40 @@ function send(e) {
 		xmlhttp.setRequestHeader("Content-Type", "application/json");
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
+				window.stop();
 				populateChatContainer();
+				document.getElementById("send").disabled = false;
 				document.getElementById("send").value = '';
 			}
 		};
 		xmlhttp.send(JSON.stringify(requestObj));
     }
+}
+
+function timeSince(date) {
+
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = seconds / 31536000;
+
+  if (interval > 1) {
+    return Math.floor(interval) + " years ago";
+  }
+  interval = seconds / 2592000;
+  if (interval > 1) {
+    return Math.floor(interval) + " months ago";
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    return Math.floor(interval) + " days ago";
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    return Math.floor(interval) + " hours ago";
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    return Math.floor(interval) + " minutes ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
 }
