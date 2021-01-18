@@ -39,7 +39,7 @@ window.setInterval(function() {
 	populateChatContainer();
 }, 5000);
 
-function send(ele) {
+function send(event) {
     if(event.key === 'Enter' && document.getElementById("send").value !='') {
 		window.stop();
 		var requestObj = {
