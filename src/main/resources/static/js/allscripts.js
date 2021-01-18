@@ -28,7 +28,7 @@ function printResp(resp) {
 		document.getElementById("catalog").innerHTML = "";
 		for (var i = 0; i < resp.length; i++) {
 			var styleString = 'style="float: left;"';
-			if((new URLSearchParams(window.location.search)).get('sender').toUpperCase() == resp[i].sender.toUpperCase())
+			if((new URLSearchParams(window.location.search)).get('sender').toLowerCase() == resp[i].sender.toLowerCase())
 				styleString = 'style="float: right;background-color: #bbbbbb;"';
 			document.getElementById("catalog").innerHTML += '<div class="square" '+styleString+'> <div class="repoDesc"> <p> <b>'+resp[i].sender.toUpperCase()+'</b>: '+resp[i].message+'</p> </div> </div>';
 		}

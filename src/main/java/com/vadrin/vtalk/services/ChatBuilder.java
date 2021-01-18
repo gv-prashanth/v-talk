@@ -14,8 +14,8 @@ public class ChatBuilder {
   public Chat buildWithChatDTO(ChatDTO chatDTO) {
     Chat chat = new Chat();
     chat.setMessage(chatDTO.getMessage());
-    chat.setSender(chatDTO.getSender());
-    chat.setReceiver(chatDTO.getReceiver());
+    chat.setSender(chatDTO.getSender().toLowerCase());
+    chat.setReceiver(chatDTO.getReceiver().toLowerCase());
     chat.setCreatedOn(Timestamp.from(Instant.now()));
     return chat;
   }
