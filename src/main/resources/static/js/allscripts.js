@@ -1,3 +1,9 @@
+function checkAndSend(event) {
+    if (event.keyCode == 13) {
+        send();
+    }
+};
+
 function populateChatContainer() {
 	var xmlhttp = new XMLHttpRequest(); // new HttpRequest
 	// instance

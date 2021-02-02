@@ -38,9 +38,9 @@
 		</div>
 		<div class="footer">
 			<div class="search-container">
-			    <input type="text" class="messageBox" name="search" id="send" placeholder="Send a message..." autocomplete="off">
+			    <input type="text" class="messageBox" name="search" id="send" onkeyup="checkAndSend(event);" placeholder="Send a message..." autocomplete="off">
 			    <input type="button" onclick="send()" value="SEND" class="button"/>
-			</div>			
+			</div>
 		</div>  
 	</div>
 </body>
