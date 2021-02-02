@@ -56,6 +56,7 @@ function send() {
 				populateChatContainer();
 				document.getElementById("send").disabled = false;
 				document.getElementById("send").value = '';
+				document.getElementById("send").focus();
 			}
 		};
 		xmlhttp.send(JSON.stringify(requestObj));
