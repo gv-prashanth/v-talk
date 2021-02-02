@@ -25,9 +25,9 @@
 	margin: 0px;
 	font-weight: bold;
 	position: fixed;
+	right: 0;
 	left: 0;
 	bottom: 0;
-	width: 100%;
 }
 
 .navigation {
@@ -120,21 +120,20 @@ body{
 }
 
 .search-container input[type=text] {
-border-width: 2px;
+  border-width: 2px;
   border-width: 2px;
   border-color: #cccccc;
   border-style: solid;
   border-radius: 50px;
   padding: 10px;
   font-size: 20px;
-  box-sizing: border-box;
-  width: 70%;
+  width: 80%;
 }
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     .search-container input[type=text] {
-        width: 65%;
+        width: 80%;
     }
     
     .square {	
@@ -145,7 +144,7 @@ border-width: 2px;
 @media only screen and (min-width: 769px) and (max-width: 1200px) {
     /* For tablets: */
     .search-container input[type=text] {
-        width: 65%;
+        width: 80%;
     }
     
     .square {	
@@ -157,15 +156,15 @@ border-width: 2px;
   outline: none;
 }
 
-.button {
-background-color: #CCCCCC;
-    border: none;
-    color: white;
-    /* padding: 13px; */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin-left: 10px;
-    height: 44px;
-}
+/* .button { */
+/* background-color: #CCCCCC; */
+/*     border: none; */
+/*     color: white; */
+/*     padding: 13px; */
+/*     text-align: center; */
+/*     text-decoration: none; */
+/*     display: inline-block; */
+/*     cursor: pointer; */
+/*     margin-left: 10px; */
+/*     height: 44px; */
+/* } */
