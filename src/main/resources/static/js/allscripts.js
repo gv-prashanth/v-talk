@@ -36,7 +36,7 @@ function printResp(resp) {
 
 window.setInterval(function() {
 	populateChatContainer();
-}, 10000);
+}, 3000);
 
 function send() {
     if(document.getElementById("send").value !='') {
