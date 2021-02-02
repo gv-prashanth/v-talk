@@ -26,10 +26,9 @@ public class ChatControllerV2 {
     chatService.save(chatDTO);
   }
 
-  @GetMapping("/chats")
-  public List<Chat> getChats(@RequestParam(name = "sender", required = true) String sender,
-      @RequestParam(name = "receiver", required = true) String receiver) {
-    return chatService.findBySenderReceiver(sender.toLowerCase(), receiver.toLowerCase());
+  @PostMapping("/get/chats")
+  public List<Chat> getChats(@RequestBody ChatDTO chatDTO) {
+    return chatService.findBySenderReceiver(chatDTO.getSender().toLowerCase(), chatDTO.getReceiver().toLowerCase());
   }
 
 }

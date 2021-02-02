@@ -11,9 +11,17 @@
 <title>Vadrin</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css?vad=rin">
 <link rel="stylesheet" type="text/css" href="/css/main.css?vad=rin" />
+<script th:inline="javascript">
+/*<![CDATA[*/
+    var globalSender = /*[[${globalSender}]]*/ 'default1';
+    var globalReceiver = /*[[${globalReceiver}]]*/ 'default2';
+    console.log(globalSender);
+	console.log(globalReceiver);
+/*]]>*/
+</script>
 <script src="/js/allscripts.js"></script>
 </head>
-<body onload='validateSenderReceiver();populateChatContainer();'>
+<body onload='populateChatContainer();'>
 	<div class="main">
 		<div class="navigation">
 			<ul>

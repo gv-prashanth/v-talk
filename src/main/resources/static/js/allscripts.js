@@ -1,18 +1,7 @@
-function validateSenderReceiver(){
-	var sender;
-	var receiver;
-	if((new URLSearchParams(window.location.search)).get('sender')==null || (new URLSearchParams(window.location.search)).get('sender')=="")
-		sender = prompt("What is your nick?");
-	if((new URLSearchParams(window.location.search)).get('receiver')==null || (new URLSearchParams(window.location.search)).get('receiver')=="")
-		receiver = prompt("What is your friend's nick?");
-	if(sender!=null || receiver!=null)
-		window.location.href = '/testi.html' + '?sender='+sender+'&receiver='+receiver;
-}
-
 function populateChatContainer() {
 	var xmlhttp = new XMLHttpRequest(); // new HttpRequest
 	// instance
-	xmlhttp.open("GET", "/v2/chats?sender="+(new URLSearchParams(window.location.search)).get('sender')+"&receiver="+(new URLSearchParams(window.location.search)).get('receiver'));
+	xmlhttp.open("POST", "/v2/get/chats");
 	xmlhttp.setRequestHeader("Content-Type", "application/json");
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -20,7 +9,11 @@ function populateChatContainer() {
 			printResp(resp);
 		}
 	};
-	xmlhttp.send();
+	var requestObj = {
+		"sender": globalSender,
+		"receiver": globalReceiver
+	};
+	xmlhttp.send(JSON.stringify(requestObj));
 }
 
 function printResp(resp) {
@@ -28,7 +21,7 @@ function printResp(resp) {
 		document.getElementById("catalog").innerHTML = "";
 		for (var i = 0; i < resp.length; i++) {
 			var styleString = 'style="float: left;"';
-			if((new URLSearchParams(window.location.search)).get('sender').toLowerCase() == resp[i].sender.toLowerCase())
+			if(globalSender.toLowerCase() == resp[i].sender.toLowerCase())
 				styleString = 'style="float: right;background-color: #bbbbbb;"';
 			document.getElementById("catalog").innerHTML += '<div class="square" '+styleString+'> <div class="repoDesc"> <p> <b>'+resp[i].sender.toUpperCase()+'</b>: '+resp[i].message+'</p> </div> <div class="repoDesc" style="float:right;"><p>'+timeSince(Date.parse(resp[i].createdOn))+'</p></div> </div>';
 		}
@@ -44,8 +37,8 @@ function send() {
 		document.getElementById("send").disabled = true;
 		var requestObj = {
 			"message": document.getElementById("send").value,
-			"sender": (new URLSearchParams(window.location.search)).get('sender'),
-			"receiver": (new URLSearchParams(window.location.search)).get('receiver')
+			"sender": globalSender,
+			"receiver": globalReceiver
 		};
 		var xmlhttp = new XMLHttpRequest(); // new HttpRequest
 		// instance
