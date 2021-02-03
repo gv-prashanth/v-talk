@@ -99,6 +99,24 @@ function send() {
     }
 }
 
+function login() {
+	var requestObj = {
+		"geoInfo": "TODO",
+		"sender": globalSender,
+		"receiver": globalReceiver
+	};
+	var xmlhttp = new XMLHttpRequest(); // new HttpRequest
+	// instance
+	xmlhttp.open("POST", "/v2/login");
+	xmlhttp.setRequestHeader("Content-Type", "application/json");
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			console.log("login succesful");
+		}
+	};
+	xmlhttp.send(JSON.stringify(requestObj));
+}
+
 function timeSince(date) {
 
   var seconds = Math.floor((new Date() - date) / 1000);
