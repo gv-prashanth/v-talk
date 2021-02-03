@@ -1,3 +1,36 @@
+function getBaseUrl ()  {
+    var file = document.querySelector('input[type=file]')['files'][0];
+    var reader = new FileReader();
+    var baseString;
+    reader.onloadend = function () {
+        baseString = reader.result;
+        console.log(baseString);
+		sendImage(baseString);
+    };
+    reader.readAsDataURL(file);
+}
+
+function sendImage(imageBase64) {
+    if(imageBase64 !='') {
+		var requestObj = {
+			"message": imageBase64,
+			"sender": globalSender,
+			"receiver": globalReceiver
+		};
+		var xmlhttp = new XMLHttpRequest(); // new HttpRequest
+		// instance
+		xmlhttp.open("POST", "/v2/chats");
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				window.stop();
+				populateChatContainer();
+			}
+		};
+		xmlhttp.send(JSON.stringify(requestObj));
+    }
+}
+
 function checkAndSend(event) {
     if (event.keyCode == 13) {
         send();
@@ -29,7 +62,10 @@ function printResp(resp) {
 			var styleString = 'style="float: left;"';
 			if(globalSender.toLowerCase() == resp[i].sender.toLowerCase())
 				styleString = 'style="float: right;background-color: #bbbbbb;"';
-			document.getElementById("catalog").innerHTML += '<div class="square" '+styleString+'> <div class="repoDesc"> <p> <b>'+resp[i].sender.toUpperCase()+'</b>: '+resp[i].message+'</p> </div> <div class="repoDesc" style="float:right;"><p>'+timeSince(Date.parse(resp[i].createdOn))+'</p></div> </div>';
+			if(resp[i].message.includes("base64"))
+				document.getElementById("catalog").innerHTML += '<div class="square" '+styleString+'> <div class="repoDesc"> <p> <b>'+resp[i].sender.toUpperCase()+'</b>: <img src='+resp[i].message+' style="width:100%;"> </p> </div> <div style="float:right;"><p>'+timeSince(Date.parse(resp[i].createdOn))+'</p></div> </div>';
+			else
+				document.getElementById("catalog").innerHTML += '<div class="square" '+styleString+'> <div class="repoDesc"> <p> <b>'+resp[i].sender.toUpperCase()+'</b>: '+resp[i].message+'</p> </div> <div style="float:right;"><p>'+timeSince(Date.parse(resp[i].createdOn))+'</p></div> </div>';
 		}
 	}
 }

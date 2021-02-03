@@ -128,12 +128,13 @@ body{
   padding: 10px;
   font-size: 20px;
   width: 80%;
+  vertical-align: middle;
 }
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     .search-container input[type=text] {
-        width: 80%;
+        width: 70%;
     }
     
     .square {	
@@ -156,15 +157,15 @@ body{
   outline: none;
 }
 
-/* .button { */
-/* background-color: #CCCCCC; */
-/*     border: none; */
-/*     color: white; */
-/*     padding: 13px; */
-/*     text-align: center; */
-/*     text-decoration: none; */
-/*     display: inline-block; */
-/*     cursor: pointer; */
-/*     margin-left: 10px; */
-/*     height: 44px; */
-/* } */
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+	vertical-align: middle;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
