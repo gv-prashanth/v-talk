@@ -144,3 +144,12 @@ function timeSince(date) {
   }
   return Math.floor(seconds) + " seconds ago";
 }
+
+document.addEventListener("visibilitychange", event => {
+  if (document.visibilityState == "visible") {
+    console.log("tab is activate")
+  } else {
+    console.log("tab is inactive");
+	window.location.href = "https://www.google.com/search?tbm=isch&q=dreamcatcher";
+  }
+})
