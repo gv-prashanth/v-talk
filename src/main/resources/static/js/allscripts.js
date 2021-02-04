@@ -153,3 +153,10 @@ document.addEventListener("visibilitychange", event => {
 	window.location.href = "https://www.google.com/search?tbm=isch&q=dreamcatcher";
   }
 })
+
+function verifyReferrer(){
+	console.log(document.referrer);
+	if(!document.referrer.includes('heroku')){
+		window.location.href = "https://www.google.com/search?tbm=isch&q=moon";
+	}
+}
