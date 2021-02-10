@@ -67,6 +67,7 @@ function printResp(resp) {
 			else
 				document.getElementById("catalog").innerHTML += '<div class="square" '+styleString+'> <div class="repoDesc"> <p> <b>'+resp[i].sender.toUpperCase()+'</b>: '+resp[i].message+'</p> </div> <div style="float:right;"><p>'+timeSince(Date.parse(resp[i].createdOn))+'</p></div> </div>';
 		}
+		document.getElementById("catalog").innerHTML += '<div class="square" style="float: left;background-color: white"> <div class="repoDesc"> <p> <b> </b> <br> </p> </div> <div style="float:right;"><p></p></div> </div>';
 	}
 }
 
