@@ -28,6 +28,6 @@ public class ChatService {
 
   public List<Chat> findBySenderReceiver(String sender, String receiver) {
     Set<String> combined = Stream.of(sender, receiver).collect(Collectors.toCollection(HashSet::new));
-    return chatRepository.findLatestChats(combined, sender);
+    return chatRepository.findLatestChats(combined, sender, receiver);
   }
 }
