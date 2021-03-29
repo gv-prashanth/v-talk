@@ -9,8 +9,10 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vadrin.vtalk.models.Attachment;
 import com.vadrin.vtalk.models.Chat;
 import com.vadrin.vtalk.models.ChatDTO;
+import com.vadrin.vtalk.repositories.AttachmentRepository;
 import com.vadrin.vtalk.repositories.ChatRepository;
 
 @Service
@@ -20,10 +22,26 @@ public class ChatService {
   ChatRepository chatRepository;
 
   @Autowired
+  AttachmentRepository attachmentRepository;
+
+  @Autowired
+  ImageService imageService;
+  
+  @Autowired
   ChatBuilder chatBuilder;
 
   public void save(ChatDTO chatDTO) {
-    chatRepository.save(chatBuilder.buildWithChatDTO(chatDTO));
+    String message = chatDTO.getMessage();
+    if(chatDTO.getMessage().startsWith("data:image")) {
+      chatDTO.setMessage(imageService.reduceImageSize(message));
+    }
+    Chat chat = chatRepository.save(chatBuilder.buildWithChatDTO(chatDTO));
+    if(chat.getMessage().startsWith("data:image")) {
+      Attachment attachment = new Attachment();
+      attachment.setChatId(chat.getId());
+      attachment.setData(message);
+      attachmentRepository.save(attachment);
+    }
   }
 
   public List<Chat> findBySenderReceiver(String sender, String receiver) {
