@@ -151,6 +151,6 @@ document.addEventListener("visibilitychange", event => {
     console.log("tab is activate")
   } else {
     console.log("tab is inactive");
-	window.location.href = "https://www.google.com/search?tbm=isch&q=dreamcatcher";
+	window.location.href = "https://www.google.com/search?tbm=isch&q=ibmwebsphere";
   }
 })
