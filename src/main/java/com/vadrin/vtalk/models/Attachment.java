@@ -18,4 +18,5 @@ public class Attachment {
   public int id;
   public int chatId;
   public String data;
+  public String attachmentMeta;
 }

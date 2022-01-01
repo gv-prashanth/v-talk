@@ -8,5 +8,5 @@ public class ChatDTO {
   public String message;
   public String sender;
   public String receiver;
-
+  public String messageMeta;
 }

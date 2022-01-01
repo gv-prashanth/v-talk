@@ -40,6 +40,7 @@ public class ChatService {
       Attachment attachment = new Attachment();
       attachment.setChatId(chat.getId());
       attachment.setData(message);
+      attachment.setAttachmentMeta(chatDTO.getMessageMeta());
       attachmentRepository.save(attachment);
     }
   }
