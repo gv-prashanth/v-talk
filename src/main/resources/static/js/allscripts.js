@@ -16,7 +16,7 @@ function encodeAndUploadFile() {
 function loadEXIFData(myData) {
 	try {
 		// Calculate latitude decimal
-		var latDegree = myData.exifdata.GPSLatitude[0].numerator;
+		var latDegree = myData.exifdata.GPSLatitude[2].numerator/myData.exifdata.GPSLatitude[0].denominator;
 		var latMinute = myData.exifdata.GPSLatitude[1].numerator;
 		var latSecond = myData.exifdata.GPSLatitude[2].numerator;
 		var latDirection = myData.exifdata.GPSLatitudeRef;
