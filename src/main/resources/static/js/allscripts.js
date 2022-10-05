@@ -108,11 +108,32 @@ function printResp(resp) {
 				styleString = 'style="float: right;background-color: #bbbbbb;"';
 			if (resp[i].message.includes("base64"))
 				document.getElementById("catalog").innerHTML += '<div class="square" ' + styleString + '> <div class="repoDesc"> <p> <b>' + resp[i].sender.toUpperCase() + '</b>: <img src=' + resp[i].message + ' style="width:100%;"> </p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn)) + '</p></div> </div>';
-			else
-				document.getElementById("catalog").innerHTML += '<div class="square" ' + styleString + '> <div class="repoDesc"> <p> <b>' + resp[i].sender.toUpperCase() + '</b>: ' + resp[i].message + '</p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn)) + '</p></div> </div>';
+			else{
+				constructedString = '<div class="square" ' + styleString + '> <div class="repoDesc"> <p>' + postProcess(resp[i].message) + '</p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn));
+				if (globalSender.toLowerCase() != resp[i].sender.toLowerCase())
+					constructedString += '&nbsp;&nbsp;&nbsp;<img width="25" onClick="replyTo(\''+resp[i].sender.toUpperCase()+'\', \''+btoa(resp[i].message)+'\')" src= "/img/reply2.png"/>';
+				constructedString += '</p></div> </div>';
+				document.getElementById("catalog").innerHTML += constructedString;
+			}
 		}
 		document.getElementById("catalog").innerHTML += '<div class="square" style="float: left;background-color: white"> <div class="repoDesc"> <p> <b> </b> <br> </p> </div> <div style="float:right;"><p></p></div> </div>';
 	}
+}
+
+function replyTo(usr, mssg){
+	mssg = atob(mssg);
+	const regex = /\|\|.*\|\|->/i;
+	mssg = mssg.replace(regex, '');
+	globalReply = '|| '+mssg+' ||-> ';
+	document.getElementById("search-container-id").innerHTML = '<div id = "needToRemoveLater" class="square" style="float: left;color: black;font-weight: normal;"> <div class="repoDesc"> <p>'+mssg+'</p> </div> </div>' + document.getElementById("search-container-id").innerHTML;
+	document.getElementById("send").focus();
+	//document.getElementById("send").value = '|| '+usr+': '+mssg+' ||-> ';
+}
+
+function postProcess(mssg){
+	mssg = mssg.replace('|| ', '<span style=\'background-color:white;border-radius: 50px;padding: 2px 10px 2px 10px;\'>');
+	mssg = mssg.replace(' ||-> ', '</span><br><br>');
+	return mssg;
 }
 
 window.setInterval(function() {
@@ -123,7 +144,7 @@ function send() {
 	if (document.getElementById("send").value != '') {
 		document.getElementById("send").disabled = true;
 		var requestObj = {
-			"message": document.getElementById("send").value,
+			"message": globalReply+document.getElementById("send").value,
 			"sender": globalSender,
 			"receiver": globalReceiver
 		};
@@ -138,6 +159,9 @@ function send() {
 				document.getElementById("send").disabled = false;
 				document.getElementById("send").value = '';
 				document.getElementById("send").focus();
+				globalReply = '';
+				if(document.getElementById("needToRemoveLater")!=null)
+					document.getElementById("needToRemoveLater").remove();
 			}
 		};
 		xmlhttp.send(JSON.stringify(requestObj));
