@@ -116,7 +116,7 @@ function printResp(resp) {
 			if (resp[i].message.includes("base64"))
 				document.getElementById("catalog").innerHTML += '<div class="square" ' + styleString + '> <div class="repoDesc"> <p> <b>' + resp[i].sender.toUpperCase() + '</b>: <img src=' + resp[i].message + ' style="width:100%;"> </p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn)) + '</p></div> </div>';
 			else{
-				constructedString = '<div class="square" ' + styleString + '> <div class="repoDesc"> <p>' + postProcess(resp[i].message) + '</p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn));
+				constructedString = '<div class="square" ' + styleString + '> <div class="repoDesc"> <p>' + postProcess(resp[i].message, resp[i].sender.toUpperCase()) + '</p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn));
 				if (globalSender.toLowerCase() != resp[i].sender.toLowerCase())
 					constructedString += '&nbsp;&nbsp;&nbsp;<img width="25" onClick="replyTo(\''+resp[i].sender.toUpperCase()+'\', \''+encodeURIComponent(resp[i].message)+'\')" src= "/img/reply2.png"/>';
 				constructedString += '</p></div> </div>';
@@ -132,15 +132,19 @@ function replyTo(usr, mssg){
 	mssg = decodeURIComponent(mssg);
 	const regex = /\|\|.*\|\|->/i;
 	mssg = mssg.replace(regex, '');
-	globalReply = '|| '+mssg+' ||-> ';
-	document.getElementById("search-container-id").innerHTML = '<div id = "needToRemoveLater" class="square" style="float: left;color: black;font-weight: normal;"> <div class="repoDesc"> <p>'+mssg+'</p> </div> </div>' + document.getElementById("search-container-id").innerHTML;
+	globalReply = '|| '+usr+': '+mssg+' ||-> ';
+	document.getElementById("search-container-id").innerHTML = '<div id = "needToRemoveLater" class="square" style="float: left;color: black;font-weight: normal;"> <div class="repoDesc"> <p>'+usr+': '+mssg+'</p> </div> </div>' + document.getElementById("search-container-id").innerHTML;
 	document.getElementById("send").focus();
 	//document.getElementById("send").value = '|| '+usr+': '+mssg+' ||-> ';
 }
 
-function postProcess(mssg){
-	mssg = mssg.replace('|| ', '<span style=\'background-color:white;border-radius: 50px;padding: 2px 10px 2px 10px;\'>');
-	mssg = mssg.replace(' ||-> ', '</span><br><br>');
+function postProcess(mssg, sender){
+	if(mssg.includes(' ||-> ')){
+		mssg = mssg.replace('|| ', '<span style=\'background-color:white;border-radius: 50px;padding: 2px 10px 2px 10px;\'>');
+		mssg = mssg.replace(' ||-> ', '</span><br><br>'+'<b>' + sender + '</b>: ');
+	}else{
+		mssg = '<b>' + sender + '</b>: ' + mssg;
+	}
 	return mssg;
 }
 
