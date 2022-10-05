@@ -2,6 +2,7 @@ package com.vadrin.vtalk.services;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -45,8 +46,11 @@ public class ChatService {
     }
   }
 
-  public List<Chat> findBySenderReceiver(String sender, String receiver) {
+  public List<Chat> findBySenderReceiver(String sender, String receiver, Optional<Integer> lastPullChatId) {
     Set<String> combined = Stream.of(sender, receiver).collect(Collectors.toCollection(HashSet::new));
-    return chatRepository.findLatestChats(combined, sender, receiver);
+    if(lastPullChatId.isPresent())
+    	return chatRepository.findLatestChatsAfterLastPull(combined, lastPullChatId.get());
+    else
+    	return chatRepository.findLatestChats(combined, sender, receiver);
   }
 }

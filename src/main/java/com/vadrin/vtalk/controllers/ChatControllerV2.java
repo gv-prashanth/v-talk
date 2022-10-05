@@ -1,11 +1,13 @@
 package com.vadrin.vtalk.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vadrin.vtalk.models.Chat;
@@ -25,8 +27,8 @@ public class ChatControllerV2 {
   }
 
   @PostMapping("/get/chats")
-  public List<Chat> getChats(@RequestBody ChatDTO chatDTO) {
-    return chatService.findBySenderReceiver(chatDTO.getSender().toLowerCase(), chatDTO.getReceiver().toLowerCase());
+  public List<Chat> getChats(@RequestBody ChatDTO chatDTO, @RequestParam Optional<Integer> lastPullChatId) {
+    return chatService.findBySenderReceiver(chatDTO.getSender().toLowerCase(), chatDTO.getReceiver().toLowerCase(), lastPullChatId);
   }
 
 }

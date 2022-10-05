@@ -55,6 +55,7 @@ function ConvertDMSToDD(degrees, minutes, seconds, direction) {
 
 function sendImage(imageBase64, myData) {
 	if (imageBase64 != '') {
+		document.getElementById("send").disabled = true;
 		var requestObj = {
 			"message": imageBase64,
 			"sender": globalSender,
@@ -68,6 +69,7 @@ function sendImage(imageBase64, myData) {
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				window.stop();
+				document.getElementById("send").disabled = false;
 				populateChatContainer();
 			}
 		};
@@ -84,7 +86,10 @@ function checkAndSend(event) {
 function populateChatContainer() {
 	var xmlhttp = new XMLHttpRequest(); // new HttpRequest
 	// instance
-	xmlhttp.open("POST", "/v2/get/chats");
+	if(globalLastPullChatId == null)
+		xmlhttp.open("POST", "/v2/get/chats");
+	else
+		xmlhttp.open("POST", "/v2/get/chats?lastPullChatId="+globalLastPullChatId);
 	xmlhttp.setRequestHeader("Content-Type", "application/json");
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -101,7 +106,9 @@ function populateChatContainer() {
 
 function printResp(resp) {
 	if (resp.length > 0) {
-		document.getElementById("catalog").innerHTML = "";
+		//document.getElementById("catalog").innerHTML = "";
+		if(document.getElementById("extraSpaceBelow")!=null)
+			document.getElementById("extraSpaceBelow").remove();
 		for (var i = 0; i < resp.length; i++) {
 			var styleString = 'style="float: left;"';
 			if (globalSender.toLowerCase() == resp[i].sender.toLowerCase())
@@ -115,8 +122,9 @@ function printResp(resp) {
 				constructedString += '</p></div> </div>';
 				document.getElementById("catalog").innerHTML += constructedString;
 			}
+			globalLastPullChatId = resp[i].id;
 		}
-		document.getElementById("catalog").innerHTML += '<div class="square" style="float: left;background-color: white"> <div class="repoDesc"> <p> <b> </b> <br> </p> </div> <div style="float:right;"><p></p></div> </div>';
+		document.getElementById("catalog").innerHTML += '<div class="square" style="float: left;background-color: white" id="extraSpaceBelow"> <div class="repoDesc"> <p> <b> </b> <br> </p> </div> <div style="float:right;"><p></p></div> </div>';
 	}
 }
 
