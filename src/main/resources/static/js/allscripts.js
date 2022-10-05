@@ -111,7 +111,7 @@ function printResp(resp) {
 			else{
 				constructedString = '<div class="square" ' + styleString + '> <div class="repoDesc"> <p>' + postProcess(resp[i].message) + '</p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn));
 				if (globalSender.toLowerCase() != resp[i].sender.toLowerCase())
-					constructedString += '&nbsp;&nbsp;&nbsp;<img width="25" onClick="replyTo(\''+resp[i].sender.toUpperCase()+'\', \''+btoa(resp[i].message)+'\')" src= "/img/reply2.png"/>';
+					constructedString += '&nbsp;&nbsp;&nbsp;<img width="25" onClick="replyTo(\''+resp[i].sender.toUpperCase()+'\', \''+encodeURIComponent(resp[i].message)+'\')" src= "/img/reply2.png"/>';
 				constructedString += '</p></div> </div>';
 				document.getElementById("catalog").innerHTML += constructedString;
 			}
@@ -121,7 +121,7 @@ function printResp(resp) {
 }
 
 function replyTo(usr, mssg){
-	mssg = atob(mssg);
+	mssg = decodeURIComponent(mssg);
 	const regex = /\|\|.*\|\|->/i;
 	mssg = mssg.replace(regex, '');
 	globalReply = '|| '+mssg+' ||-> ';
