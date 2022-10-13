@@ -7,6 +7,10 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class ConnectorConnectionPoolFactory extends ConnectionPoolFactory {
 
 // Note: Saving credentials in environment variables is convenient, but not
@@ -19,7 +23,7 @@ private static final String INSTANCE_UNIX_SOCKET = System.getenv("INSTANCE_UNIX_
 private static final String DB_USER = System.getenv("DB_USER");
 private static final String DB_PASS = System.getenv("DB_PASS");
 private static final String DB_NAME = System.getenv("DB_NAME");
-
+@Bean
 public static DataSource createConnectionPool() {
  // The configuration object specifies behaviors for the connection pool.
  HikariConfig config = new HikariConfig();
