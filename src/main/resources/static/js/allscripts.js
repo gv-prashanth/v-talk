@@ -110,6 +110,8 @@ function printResp(resp) {
 		if(document.getElementById("extraSpaceBelow")!=null)
 			document.getElementById("extraSpaceBelow").remove();
 		for (var i = 0; i < resp.length; i++) {
+			if(resp[i].id <= globalLastPullChatId)
+				continue;
 			var styleString = 'style="float: left;"';
 			if (globalSender.toLowerCase() == resp[i].sender.toLowerCase())
 				styleString = 'style="float: right;background-color: #bbbbbb;"';
