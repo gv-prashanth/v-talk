@@ -53,7 +53,7 @@ namespace vtalk
 
 		private string recchat;
 
-        private static string serviceDomain = "https://v-talk-site.herokuapp.com/";
+        private static string serviceDomain = "https://v-talk.vadrin.com/";
 		internal virtual BackgroundWorker BackgroundWorker1
 		{
 			[DebuggerNonUserCode]
