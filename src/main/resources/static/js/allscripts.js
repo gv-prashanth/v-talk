@@ -225,7 +225,8 @@ function timeSince(date) {
 	if (interval > 1) {
 		return Math.floor(interval) + " minutes ago";
 	}
-	return Math.floor(seconds) + "< minute ago";
+	//return Math.floor(seconds) + "< minute ago";
+	return "< a minute ago";
 }
 
 document.addEventListener("visibilitychange", event => {
