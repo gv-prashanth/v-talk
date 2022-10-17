@@ -37,7 +37,7 @@ public class TNEPassNotificationService implements NotificationService {
 
   @Override
   public int getPriority() {
-    return 2;
+    return 1;
   }
 
 }
