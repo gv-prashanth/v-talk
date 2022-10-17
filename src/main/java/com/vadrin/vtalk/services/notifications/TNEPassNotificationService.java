@@ -11,7 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.vadrin.vtalk.repositories.UserInfoRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class TNEPassNotificationService implements NotificationService {
 
   @Autowired
@@ -26,7 +29,7 @@ public class TNEPassNotificationService implements NotificationService {
       ObjectNode req = mapper.createObjectNode();
       req.put("MobileNumber", userInfoRepository.findById(receiver).get().getPhone());
       JsonNode resp = restTemplate.postForObject("https://tnepass-api.tnega.org/otp/get", req, JsonNode.class);
-      System.out.println(resp);
+      log.error(resp.toString());
       if(!resp.get("statusCode").asText().equalsIgnoreCase("200"))
         throw new IOException();
     }

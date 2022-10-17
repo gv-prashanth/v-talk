@@ -11,7 +11,10 @@ import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ImageService {
 
   public String reduceImageSize(String largeBase64Image) {
@@ -23,6 +26,7 @@ public class ImageService {
           + encodeToString(outputImage, largeBase64Image.split(";")[0].split("/")[1]);
     } catch (IOException e) {
       e.printStackTrace();
+      log.error("An exception occurred while reduceImageSize", e);
       return largeBase64Image;
     }
   }

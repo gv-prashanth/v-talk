@@ -17,8 +17,11 @@ import com.vadrin.vtalk.models.LoginInfo;
 import com.vadrin.vtalk.services.LoginInfoService;
 import com.vadrin.vtalk.services.notifications.NotificationService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/v2")
+@Slf4j
 public class LoginInfoController {
 
   @Autowired
@@ -38,6 +41,7 @@ public class LoginInfoController {
         break;
       } catch (Exception e) {
         e.printStackTrace();
+        log.error("Exception occured while NotificationService", e);
       }
     }
   }

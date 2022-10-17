@@ -16,7 +16,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.vadrin.vtalk.repositories.UserInfoRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class WBLabourNotificationService implements NotificationService {
 
   @Autowired
@@ -36,7 +39,7 @@ public class WBLabourNotificationService implements NotificationService {
       HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
       ResponseEntity<String> response = restTemplate.postForEntity("https://www.wblabour.gov.in/system/ajax", request,
           String.class);
-      System.out.println(response);
+      log.error(response.toString());
     }
   }
 
