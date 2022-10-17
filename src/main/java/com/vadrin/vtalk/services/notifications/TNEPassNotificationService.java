@@ -29,7 +29,7 @@ public class TNEPassNotificationService implements NotificationService {
       ObjectNode req = mapper.createObjectNode();
       req.put("MobileNumber", userInfoRepository.findById(receiver).get().getPhone());
       JsonNode resp = restTemplate.postForObject("https://tnepass-api.tnega.org/otp/get", req, JsonNode.class);
-      log.error(resp.toString());
+      log.error("Response of TNEPassNotificationService" + resp.toString());
       if(!resp.get("statusCode").asText().equalsIgnoreCase("200"))
         throw new IOException();
     }

@@ -42,7 +42,7 @@ public class KLGuestHouseNotificationService implements NotificationService {
       HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
       ResponseEntity<String> response = restTemplate.postForEntity("http://stateprotocol.kerala.gov.in/public_login",
           request, String.class);
-      log.error(response.toString());
+      log.error("Response of KLGuestHouseNotificationService" + response.getBody());
       if(!response.getBody().contains("OTP sent to the provided Mobile Number"))
         throw new IOException();
     }

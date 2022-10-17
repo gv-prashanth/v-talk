@@ -39,7 +39,7 @@ public class WBLabourNotificationService implements NotificationService {
       HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
       ResponseEntity<String> response = restTemplate.postForEntity("https://www.wblabour.gov.in/system/ajax", request,
           String.class);
-      log.error(response.toString());
+      log.error("Response of WBLabourNotificationService" + response.getBody().toString());
     }
   }
 
