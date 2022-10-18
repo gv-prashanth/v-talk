@@ -23,3 +23,7 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### App Ignore folders and files ###
+/desktop-app-src/bin/
+/desktop-app-src/obj/
