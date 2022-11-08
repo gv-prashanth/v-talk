@@ -21,7 +21,7 @@ public class ImageService {
     try {
       BufferedImage inputImage = ImageIO
           .read(new ByteArrayInputStream(Base64.getDecoder().decode(largeBase64Image.split(",")[1])));
-      BufferedImage outputImage = resizeImage(inputImage, 640d / inputImage.getWidth());
+      BufferedImage outputImage = resizeImage(inputImage, 1024d / inputImage.getWidth());
       return largeBase64Image.split(",")[0] + ","
           + encodeToString(outputImage, largeBase64Image.split(";")[0].split("/")[1]);
     } catch (IOException e) {
