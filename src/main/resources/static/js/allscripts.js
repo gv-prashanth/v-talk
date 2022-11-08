@@ -120,7 +120,7 @@ function printResp(resp) {
 			else{
 				constructedString = '<div class="square" ' + styleString + '> <div class="repoDesc"> <p>' + postProcess(resp[i].message, resp[i].sender.toUpperCase()) + '</p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn));
 				if (globalSender.toLowerCase() != resp[i].sender.toLowerCase())
-					constructedString += '&nbsp;&nbsp;&nbsp;<img width="25" onClick="replyTo(\''+resp[i].sender.toUpperCase()+'\', \''+encodeURIComponent(resp[i].message)+'\')" src= "/img/reply2.png"/>';
+					constructedString += '&nbsp;&nbsp;&nbsp;<img width="25" onClick="replyTo(\''+resp[i].sender.toUpperCase()+'\', \''+encodeURIComponent(resp[i].message.replaceAll("\'", ""))+'\')" src= "/img/reply2.png"/>';
 				constructedString += '</p></div> </div>';
 				document.getElementById("catalog").innerHTML += constructedString;
 			}
