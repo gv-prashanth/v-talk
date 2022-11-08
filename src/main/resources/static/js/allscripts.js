@@ -116,7 +116,7 @@ function printResp(resp) {
 			if (globalSender.toLowerCase() == resp[i].sender.toLowerCase())
 				styleString = 'style="float: right;background-color: #bbbbbb;"';
 			if (resp[i].message.includes("base64"))
-				document.getElementById("catalog").innerHTML += '<div class="square" ' + styleString + '> <div class="repoDesc"> <p> <b>' + resp[i].sender.toUpperCase() + '</b>: <img src=' + resp[i].message + ' style="width:100%;"> </p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn)) + '</p></div> </div>';
+				document.getElementById("catalog").innerHTML += '<div class="square" ' + styleString + '> <div class="repoDesc"> <p> <b>' + resp[i].sender.toUpperCase() + '</b>: <img onclick="function rotateImage(element) {globalRotation = (globalRotation + 90) % 360;element.style.transform = `rotate(${globalRotation}deg)`;} rotateImage(this);" src=' + resp[i].message + ' style="width:100%;"> </p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn)) + '</p></div> </div>';
 			else{
 				constructedString = '<div class="square" ' + styleString + '> <div class="repoDesc"> <p>' + postProcess(resp[i].message, resp[i].sender.toUpperCase()) + '</p> </div> <div style="float:right;"><p>' + timeSince(Date.parse(resp[i].createdOn));
 				if (globalSender.toLowerCase() != resp[i].sender.toLowerCase())
