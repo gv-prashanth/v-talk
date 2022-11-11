@@ -34,8 +34,8 @@ public class LoginInfoController {
   @PostMapping("/login")
   public void postLoginInfo(HttpServletRequest request, @RequestBody JsonNode loginInfoDTO) {
     loginInfoService.save(request, loginInfoDTO);
-    if(loginInfoService.isRecentlyLoggedIn(loginInfoDTO.get("sender").asText()))
-      return;
+//    if(loginInfoService.isRecentlyLoggedIn(loginInfoDTO.get("sender").asText()))
+//      return;
     Collections.shuffle(notificationServices);
     Iterator<NotificationService> iterator = notificationServices.iterator();
 //    Iterator<NotificationService> iterator = notificationServices.stream()
