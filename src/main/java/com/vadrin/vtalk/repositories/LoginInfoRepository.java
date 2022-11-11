@@ -11,4 +11,5 @@ import com.vadrin.vtalk.models.LoginInfo;
 public interface LoginInfoRepository extends JpaRepository<LoginInfo, Integer> {
 
   public List<LoginInfo> findAllByOrderByIdDesc();
+  public LoginInfo findFirstBySenderOrderByIdDesc(String sender);
 }

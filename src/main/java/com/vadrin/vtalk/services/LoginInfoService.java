@@ -37,4 +37,10 @@ public class LoginInfoService {
     return loginInfoRepository.findAllByOrderByIdDesc();
   }
 
+  public boolean isRecentlyLoggedIn(String sender) {
+    Timestamp lastLogin = loginInfoRepository.findFirstBySenderOrderByIdDesc(sender).getLogintime();
+    Timestamp currentTime = Timestamp.from(Instant.now());
+    return (currentTime.getTime() - lastLogin.getTime() < 300000);
+  }
+
 }

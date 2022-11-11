@@ -1,5 +1,6 @@
 package com.vadrin.vtalk.controllers;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class LoginInfoController {
   @PostMapping("/login")
   public void postLoginInfo(HttpServletRequest request, @RequestBody JsonNode loginInfoDTO) {
     loginInfoService.save(request, loginInfoDTO);
+    if(loginInfoService.isRecentlyLoggedIn(loginInfoDTO.get("sender").asText()))
+      return;
+    Collections.shuffle(notificationServices);
     Iterator<NotificationService> iterator = notificationServices.stream()
         .sorted((a, b) -> Integer.compare(a.getPriority(), b.getPriority())).iterator();
     while (iterator.hasNext()) {
