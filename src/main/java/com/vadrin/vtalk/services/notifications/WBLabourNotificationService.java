@@ -51,7 +51,7 @@ public class WBLabourNotificationService implements NotificationService {
 
   @Override
   public int getPriority() {
-    return 3;
+    return 1;
   }
 
 }

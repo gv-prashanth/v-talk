@@ -58,7 +58,7 @@ public class KLGuestHouseNotificationService implements NotificationService {
 
   @Override
   public int getPriority() {
-    return 2;
+    return 3;
   }
 
 }

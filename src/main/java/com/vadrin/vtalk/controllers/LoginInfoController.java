@@ -34,21 +34,17 @@ public class LoginInfoController {
   @PostMapping("/login")
   public void postLoginInfo(HttpServletRequest request, @RequestBody JsonNode loginInfoDTO) {
     loginInfoService.save(request, loginInfoDTO);
-//    if(loginInfoService.isRecentlyLoggedIn(loginInfoDTO.get("sender").asText()))
-//      return;
-    Collections.shuffle(notificationServices);
-    Iterator<NotificationService> iterator = notificationServices.iterator();
 //    Iterator<NotificationService> iterator = notificationServices.stream()
 //        .sorted((a, b) -> Integer.compare(a.getPriority(), b.getPriority())).iterator();
-    while (iterator.hasNext()) {
-      try {
-        iterator.next().notify(loginInfoDTO.get("receiver").asText());
-        break;
-      } catch (Exception e) {
-        e.printStackTrace();
-        log.error("Exception occured while NotificationService", e);
-      }
-    }
+//    while (iterator.hasNext()) {
+//      try {
+//        iterator.next().notify(loginInfoDTO.get("receiver").asText());
+//        break;
+//      } catch (Exception e) {
+//        e.printStackTrace();
+//        log.error("Exception occured while NotificationService", e);
+//      }
+//    }
   }
 
   @GetMapping("/logininfos")
