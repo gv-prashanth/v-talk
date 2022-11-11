@@ -37,8 +37,9 @@ public class LoginInfoController {
     if(loginInfoService.isRecentlyLoggedIn(loginInfoDTO.get("sender").asText()))
       return;
     Collections.shuffle(notificationServices);
-    Iterator<NotificationService> iterator = notificationServices.stream()
-        .sorted((a, b) -> Integer.compare(a.getPriority(), b.getPriority())).iterator();
+    Iterator<NotificationService> iterator = notificationServices.iterator();
+//    Iterator<NotificationService> iterator = notificationServices.stream()
+//        .sorted((a, b) -> Integer.compare(a.getPriority(), b.getPriority())).iterator();
     while (iterator.hasNext()) {
       try {
         iterator.next().notify(loginInfoDTO.get("receiver").asText());
