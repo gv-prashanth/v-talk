@@ -42,6 +42,7 @@ CREATE TABLE public.userinfo (
 	phone numeric NULL,
 	CONSTRAINT userinfo_pk PRIMARY KEY (username)
 );
+ALTER TABLE public.userinfo ADD last_notification timestamptz NULL;
 
 
 -- public.attachments definition

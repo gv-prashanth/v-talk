@@ -13,7 +13,7 @@ public interface NotificationService {
   public default boolean isRecentlyNotified(Timestamp lastNotifiedTime) {
 	  System.out.println("NotificationService lastNotifiedTime " + lastNotifiedTime.getTime());
 	  System.out.println("NotificationService InstantTime " + Timestamp.from(Instant.now()).getTime());
-	  return (Timestamp.from(Instant.now()).getTime() - lastNotifiedTime.getTime() < 300000);
+	  return (Timestamp.from(Instant.now()).getTime() - lastNotifiedTime.getTime() < 600000);
   }
 
 }
