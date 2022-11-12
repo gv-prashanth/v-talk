@@ -1,5 +1,7 @@
 package com.vadrin.vtalk.models;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,5 +15,6 @@ public class UserInfo {
 
   @Id
   public String username;
-  public String phone;
+  public Long phone;
+  public Timestamp lastNotification;
 }

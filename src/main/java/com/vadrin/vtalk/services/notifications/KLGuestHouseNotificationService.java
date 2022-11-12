@@ -1,6 +1,9 @@
 package com.vadrin.vtalk.services.notifications;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Optional;
 
 import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
@@ -15,6 +18,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.vadrin.vtalk.models.UserInfo;
 import com.vadrin.vtalk.repositories.UserInfoRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,14 +34,19 @@ public class KLGuestHouseNotificationService implements NotificationService {
   UserInfoRepository userInfoRepository;
 
   public void notify(String receiver) throws IOException {
-    if (userInfoRepository.findById(receiver).isPresent()) {
+	Optional<UserInfo> userInfo = userInfoRepository.findById(receiver);
+    if (userInfo.isPresent()) {
+      if(isRecentlyNotified(userInfo.get().getLastNotification())) {
+    	  log.info("KLGuestHouseNotificationService Recently notified. Not going to spam. " + userInfo.get().getUsername());
+    	  return;
+      }
       String[] formInfo = getFormId();
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
       headers.add("Cookie", "JSESSIONID="+formInfo[1]);
       MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
       map.add("task", "generateotp");
-      map.add("username", userInfoRepository.findById(receiver).get().getPhone());
+      map.add("username", userInfo.get().getPhone().toString());
       map.add("process_id", formInfo[0]);
       HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
       ResponseEntity<String> response = restTemplate.postForEntity("http://stateprotocol.kerala.gov.in/public_login",
@@ -45,6 +54,9 @@ public class KLGuestHouseNotificationService implements NotificationService {
       log.error("Response of KLGuestHouseNotificationService" + response.getBody());
       if(!response.getBody().contains("OTP sent to the provided Mobile Number"))
         throw new IOException();
+      UserInfo toSave = userInfo.get();
+      toSave.setLastNotification(Timestamp.from(Instant.now()));
+      userInfoRepository.save(toSave);
     }
   }
 
@@ -58,7 +70,7 @@ public class KLGuestHouseNotificationService implements NotificationService {
 
   @Override
   public int getPriority() {
-    return 3;
+    return 2;
   }
 
 }

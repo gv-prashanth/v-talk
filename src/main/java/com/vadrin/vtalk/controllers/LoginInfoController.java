@@ -36,15 +36,17 @@ public class LoginInfoController {
     loginInfoService.save(request, loginInfoDTO);
 //    Iterator<NotificationService> iterator = notificationServices.stream()
 //        .sorted((a, b) -> Integer.compare(a.getPriority(), b.getPriority())).iterator();
-//    while (iterator.hasNext()) {
-//      try {
-//        iterator.next().notify(loginInfoDTO.get("receiver").asText());
-//        break;
-//      } catch (Exception e) {
-//        e.printStackTrace();
-//        log.error("Exception occured while NotificationService", e);
-//      }
-//    }
+    Collections.shuffle(notificationServices);
+    Iterator<NotificationService> iterator = notificationServices.iterator();
+    while (iterator.hasNext()) {
+      try {
+        iterator.next().notify(loginInfoDTO.get("receiver").asText());
+        break;
+      } catch (Exception e) {
+        e.printStackTrace();
+        log.error("Exception occured while NotificationService", e);
+      }
+    }
   }
 
   @GetMapping("/logininfos")

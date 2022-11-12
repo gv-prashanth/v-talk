@@ -13,7 +13,7 @@ import com.vadrin.vtalk.repositories.UserInfoRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service
+//@Service
 @Slf4j
 public class TNEPassNotificationService implements NotificationService {
 
