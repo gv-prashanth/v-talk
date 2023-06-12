@@ -1,16 +1,41 @@
+var userUploading = false;
+
+function userClickedUploading(){
+	userUploading = true;
+}
+
+function userUploadingDone(){
+	userUploading = false;
+}
+
+
 function encodeAndUploadFile() {
 	var file = document.querySelector('input[type=file]')['files'][0];
-	EXIF.getData(file, function() {
-		myData = loadEXIFData(this);
-		var reader = new FileReader();
-		var baseString;
-		reader.onloadend = function() {
-			baseString = reader.result;
-			console.log(baseString);
-			sendImage(baseString, myData);
-		};
-		reader.readAsDataURL(file);
-	});
+	try {
+		EXIF.getData(file, function() {
+			myData = loadEXIFData(this);
+			var reader = new FileReader();
+			var baseString;
+			reader.onloadend = function() {
+				baseString = reader.result;
+				console.log(baseString);
+				sendImage(baseString, myData);
+				userUploadingDone();
+			};
+			reader.readAsDataURL(file);
+		});
+	}catch (error) {
+			myData = loadEXIFData(this);
+			var reader = new FileReader();
+			var baseString;
+			reader.onloadend = function() {
+				baseString = reader.result;
+				console.log(baseString);
+				sendImage(baseString, myData);
+				userUploadingDone();
+			};
+			reader.readAsDataURL(file);
+	}
 }
 
 function loadEXIFData(myData) {
@@ -234,6 +259,7 @@ document.addEventListener("visibilitychange", event => {
 		console.log("tab is activate")
 	} else {
 		console.log("tab is inactive");
-		window.location.href = "https://www.google.com/search?tbm=isch&q=ibmwebsphere";
+		if(!userUploading)
+			window.location.href = "https://www.google.com/search?tbm=isch&q=ibmwebsphere";
 	}
 })
