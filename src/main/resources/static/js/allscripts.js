@@ -20,9 +20,9 @@ function encodeAndUploadFile() {
 				baseString = reader.result;
 				console.log(baseString);
 				sendImage(baseString, myData);
-				userUploadingDone();
 			};
 			reader.readAsDataURL(file);
+			userUploadingDone();
 		});
 	}catch (error) {
 			myData = loadEXIFData(this);
@@ -32,9 +32,9 @@ function encodeAndUploadFile() {
 				baseString = reader.result;
 				console.log(baseString);
 				sendImage(baseString, myData);
-				userUploadingDone();
 			};
 			reader.readAsDataURL(file);
+			userUploadingDone();
 	}
 }
 

@@ -24,7 +24,7 @@ public class ImageService {
       BufferedImage outputImage = resizeImage(inputImage, 1024d / inputImage.getWidth());
       return largeBase64Image.split(",")[0] + ","
           + encodeToString(outputImage, largeBase64Image.split(";")[0].split("/")[1]);
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       log.error("An exception occurred while reduceImageSize", e);
       return largeBase64Image;
