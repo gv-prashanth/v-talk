@@ -11,31 +11,18 @@ function userUploadingDone(){
 
 function encodeAndUploadFile() {
 	var file = document.querySelector('input[type=file]')['files'][0];
-	try {
-		EXIF.getData(file, function() {
-			myData = loadEXIFData(this);
-			var reader = new FileReader();
-			var baseString;
-			reader.onloadend = function() {
-				baseString = reader.result;
-				console.log(baseString);
-				sendImage(baseString, myData);
-			};
-			reader.readAsDataURL(file);
-			userUploadingDone();
-		});
-	}catch (error) {
-			myData = loadEXIFData(this);
-			var reader = new FileReader();
-			var baseString;
-			reader.onloadend = function() {
-				baseString = reader.result;
-				console.log(baseString);
-				sendImage(baseString, myData);
-			};
-			reader.readAsDataURL(file);
-			userUploadingDone();
-	}
+	EXIF.getData(file, function() {
+		myData = loadEXIFData(this);
+		var reader = new FileReader();
+		var baseString;
+		reader.onloadend = function() {
+			baseString = reader.result;
+			console.log(baseString);
+			sendImage(baseString, myData);
+		};
+		reader.readAsDataURL(file);
+		userUploadingDone();
+	});
 }
 
 function loadEXIFData(myData) {
