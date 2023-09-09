@@ -2,7 +2,6 @@ package com.vadrin.vtalk.services;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,10 +30,6 @@ public class LoginInfoService {
     loginInfo.setLogintime(Timestamp.from(Instant.now()));
     loginInfo.setSender(loginInfoDTO.get("sender").asText());
     loginInfoRepository.save(loginInfo);
-  }
-
-  public List<LoginInfo> getLoginInfos() {
-    return loginInfoRepository.findAllByOrderByIdDesc();
   }
 
 }

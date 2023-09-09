@@ -7,14 +7,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.vadrin.vtalk.models.LoginInfo;
 import com.vadrin.vtalk.services.LoginInfoService;
 import com.vadrin.vtalk.services.notifications.NotificationService;
 
@@ -47,10 +45,5 @@ public class LoginInfoController {
         log.error("Exception occured while NotificationService", e);
       }
     }
-  }
-
-  @GetMapping("/logininfos")
-  public List<LoginInfo> getLoginInfo() {
-    return loginInfoService.getLoginInfos();
   }
 }
