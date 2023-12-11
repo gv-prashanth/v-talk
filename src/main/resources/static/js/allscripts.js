@@ -212,9 +212,9 @@ function login() {
 	xmlhttp.send(JSON.stringify(requestObj));
 }
 
-function timeSince(date) {
+function timeSince(secs) {
 	var d = new Date();
-	var seconds = Math.floor(d.getTime() - date);
+	var seconds = Math.floor(d.getTime()/1000 - secs);
 
 	var interval = seconds / 31536000;
 
