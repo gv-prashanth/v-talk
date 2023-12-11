@@ -11,6 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -21,7 +22,7 @@ import com.vadrin.vtalk.repositories.UserInfoRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-//@Service
+@Service
 @Slf4j
 public class WBLabourNotificationService implements NotificationService {
 
