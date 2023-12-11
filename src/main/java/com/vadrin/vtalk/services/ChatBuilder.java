@@ -1,10 +1,8 @@
 package com.vadrin.vtalk.services;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-
 import org.springframework.stereotype.Service;
 
+import com.google.cloud.Timestamp;
 import com.vadrin.vtalk.models.Chat;
 import com.vadrin.vtalk.models.ChatDTO;
 
@@ -16,7 +14,7 @@ public class ChatBuilder {
     chat.setMessage(chatDTO.getMessage());
     chat.setSender(chatDTO.getSender().toLowerCase());
     chat.setReceiver(chatDTO.getReceiver().toLowerCase());
-    chat.setCreatedOn(Timestamp.from(Instant.now()));
+    chat.setCreatedOn(Timestamp.now());
     return chat;
   }
 

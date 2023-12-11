@@ -122,7 +122,7 @@ function printResp(resp) {
 		if(document.getElementById("extraSpaceBelow")!=null)
 			document.getElementById("extraSpaceBelow").remove();
 		for (var i = 0; i < resp.length; i++) {
-			if(resp[i].id <= globalLastPullChatId)
+			if(resp[i].createdOn.seconds <= globalLastPullChatId)
 				continue;
 			var styleString = 'style="float: left;"';
 			if (globalSender.toLowerCase() == resp[i].sender.toLowerCase())
@@ -136,7 +136,7 @@ function printResp(resp) {
 				constructedString += '</p></div> </div>';
 				document.getElementById("catalog").innerHTML += constructedString;
 			}
-			globalLastPullChatId = resp[i].id;
+			globalLastPullChatId = resp[i].createdOn.seconds;
 		}
 		document.getElementById("catalog").innerHTML += '<div class="square" style="float: left;background-color: white" id="extraSpaceBelow"> <div class="repoDesc"> <p> <b> </b> <br> </p> </div> <div style="float:right;"><p></p></div> </div>';
 	}
@@ -246,7 +246,7 @@ document.addEventListener("visibilitychange", event => {
 		console.log("tab is activate")
 	} else {
 		console.log("tab is inactive");
-		if(!userUploading)
-			window.location.href = "https://www.google.com/search?tbm=isch&q=ibmwebsphere";
+		//if(!userUploading)
+		//	window.location.href = "https://www.google.com/search?tbm=isch&q=ibmwebsphere";
 	}
 })

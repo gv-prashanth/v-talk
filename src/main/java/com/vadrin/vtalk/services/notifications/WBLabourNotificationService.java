@@ -1,9 +1,8 @@
 package com.vadrin.vtalk.services.notifications;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,6 +15,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.cloud.Timestamp;
 import com.vadrin.vtalk.models.UserInfo;
 import com.vadrin.vtalk.repositories.UserInfoRepository;
 
@@ -31,7 +31,7 @@ public class WBLabourNotificationService implements NotificationService {
   @Autowired
   UserInfoRepository userInfoRepository;
 
-  public void notify(String receiver) throws IOException {
+  public void notify(String receiver) throws IOException, InterruptedException, ExecutionException {
     Optional<UserInfo> userInfo = userInfoRepository.findById(receiver);
 	if (userInfo.isPresent()) {
       if(isRecentlyNotified(userInfo.get().getLastNotification())) {
@@ -50,7 +50,7 @@ public class WBLabourNotificationService implements NotificationService {
           String.class);
       log.error("Response of WBLabourNotificationService" + response.getBody().toString());
       UserInfo toSave = userInfo.get();
-      toSave.setLastNotification(Timestamp.from(Instant.now()));
+      toSave.setLastNotification(Timestamp.now());
       userInfoRepository.save(toSave);
     }
   }

@@ -2,6 +2,7 @@ package com.vadrin.vtalk.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,12 +23,12 @@ public class ChatControllerV2 {
   ChatService chatService;
 
   @PostMapping("/chats")
-  public void postChats(@RequestBody ChatDTO chatDTO) {
+  public void postChats(@RequestBody ChatDTO chatDTO) throws InterruptedException, ExecutionException {
     chatService.save(chatDTO);
   }
 
   @PostMapping("/get/chats")
-  public List<Chat> getChats(@RequestBody ChatDTO chatDTO, @RequestParam Optional<Integer> lastPullChatId) {
+  public List<Chat> getChats(@RequestBody ChatDTO chatDTO, @RequestParam Optional<String> lastPullChatId) throws InterruptedException, ExecutionException {
     return chatService.findBySenderReceiver(chatDTO.getSender().toLowerCase(), chatDTO.getReceiver().toLowerCase(), lastPullChatId);
   }
 

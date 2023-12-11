@@ -1,19 +1,18 @@
 package com.vadrin.vtalk.services.notifications;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.util.concurrent.ExecutionException;
+
+import com.google.cloud.Timestamp;
 
 public interface NotificationService {
 
-  public void notify(String receiver) throws IOException;
+  public void notify(String receiver) throws IOException, InterruptedException, ExecutionException;
 
   public int getPriority();
   
   public default boolean isRecentlyNotified(Timestamp lastNotifiedTime) {
-	  System.out.println("NotificationService lastNotifiedTime " + lastNotifiedTime.getTime());
-	  System.out.println("NotificationService InstantTime " + Timestamp.from(Instant.now()).getTime());
-	  return (Timestamp.from(Instant.now()).getTime() - lastNotifiedTime.getTime() < 1200000);
+	  return (Timestamp.now().getSeconds() - lastNotifiedTime.getSeconds() < 1200);
   }
 
 }

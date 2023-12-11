@@ -1,11 +1,21 @@
 package com.vadrin.vtalk.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.concurrent.ExecutionException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.google.cloud.firestore.Firestore;
 import com.vadrin.vtalk.models.Attachment;
 
-@Repository
-public interface AttachmentRepository extends JpaRepository<Attachment, Integer> {
+@Service
+public class AttachmentRepository {
+
+  @Autowired
+  Firestore firestore;
+  
+  public void save(Attachment attachment) throws InterruptedException, ExecutionException {
+    this.firestore.collection("AttachmentRepository").document().create(attachment).get();
+  }
 
 }

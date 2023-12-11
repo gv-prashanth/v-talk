@@ -1,11 +1,21 @@
 package com.vadrin.vtalk.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.concurrent.ExecutionException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.google.cloud.firestore.Firestore;
 import com.vadrin.vtalk.models.LoginInfo;
 
-@Repository
-public interface LoginInfoRepository extends JpaRepository<LoginInfo, Integer> {
+@Service
+public class LoginInfoRepository {
+
+  @Autowired
+  Firestore firestore;
+
+  public void save(LoginInfo loginInfo) throws InterruptedException, ExecutionException {
+    this.firestore.collection("LoginInfoRepository").document().create(loginInfo).get();
+  }
   
 }

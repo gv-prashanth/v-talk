@@ -3,6 +3,7 @@ package com.vadrin.vtalk.controllers;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +31,7 @@ public class LoginInfoController {
   List<NotificationService> notificationServices;
 
   @PostMapping("/login")
-  public void postLoginInfo(HttpServletRequest request, @RequestBody JsonNode loginInfoDTO) {
+  public void postLoginInfo(HttpServletRequest request, @RequestBody JsonNode loginInfoDTO) throws InterruptedException, ExecutionException {
     loginInfoService.save(request, loginInfoDTO);
 //    Iterator<NotificationService> iterator = notificationServices.stream()
 //        .sorted((a, b) -> Integer.compare(a.getPriority(), b.getPriority())).iterator();

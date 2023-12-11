@@ -1,15 +1,13 @@
 package com.vadrin.vtalk.services;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.cloud.Timestamp;
 import com.vadrin.vtalk.models.Attachment;
 import com.vadrin.vtalk.models.Chat;
 import com.vadrin.vtalk.models.ChatDTO;
@@ -31,26 +29,24 @@ public class ChatService {
   @Autowired
   ChatBuilder chatBuilder;
 
-  public void save(ChatDTO chatDTO) {
+  public void save(ChatDTO chatDTO) throws InterruptedException, ExecutionException {
     String message = chatDTO.getMessage();
     if(chatDTO.getMessage().startsWith("data:image")) {
       chatDTO.setMessage(imageService.reduceImageSize(message));
     }
-    Chat chat = chatRepository.save(chatBuilder.buildWithChatDTO(chatDTO));
-    if(chat.getMessage().startsWith("data:image")) {
+    chatRepository.save(chatBuilder.buildWithChatDTO(chatDTO));
+    if(chatDTO.getMessage().startsWith("data:image")) {
       Attachment attachment = new Attachment();
-      attachment.setChatId(chat.getId());
       attachment.setData(message);
       attachment.setAttachmentMeta(chatDTO.getMessageMeta());
       attachmentRepository.save(attachment);
     }
   }
 
-  public List<Chat> findBySenderReceiver(String sender, String receiver, Optional<Integer> lastPullChatId) {
-    Set<String> combined = Stream.of(sender, receiver).collect(Collectors.toCollection(HashSet::new));
+  public List<Chat> findBySenderReceiver(String sender, String receiver, Optional<String> lastPullChatId) throws InterruptedException, ExecutionException {
     if(lastPullChatId.isPresent())
-    	return chatRepository.findLatestChatsAfterLastPull(combined, lastPullChatId.get());
+    	return chatRepository.findLatestChatsAfterLastPull(sender, receiver, Timestamp.ofTimeSecondsAndNanos(Long.valueOf(lastPullChatId.get()), 0));
     else
-    	return chatRepository.findLatestChats(combined, sender, receiver);
+    	return chatRepository.findLatestChats(sender, receiver);
   }
 }
