@@ -246,7 +246,7 @@ document.addEventListener("visibilitychange", event => {
 		console.log("tab is activate")
 	} else {
 		console.log("tab is inactive");
-		//if(!userUploading)
-		//	window.location.href = "https://www.google.com/search?tbm=isch&q=ibmwebsphere";
+		if(!userUploading)
+			window.location.href = "https://www.google.com/search?tbm=isch&q=ibmwebsphere";
 	}
 })
