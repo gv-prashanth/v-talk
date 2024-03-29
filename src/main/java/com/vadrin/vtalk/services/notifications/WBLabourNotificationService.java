@@ -57,7 +57,7 @@ public class WBLabourNotificationService implements NotificationService {
   }
 
   private String getFormId() throws IOException {
-    Document doc = Jsoup.connect("https://wblabour.gov.in/enlogin").get();
+    Document doc = Jsoup.connect("https://wblabour.gov.in/enlogin").validateTLSCertificates(false).get();
     String toReturn = doc.select("input[name=form_build_id]").val();
     return toReturn;
   }
