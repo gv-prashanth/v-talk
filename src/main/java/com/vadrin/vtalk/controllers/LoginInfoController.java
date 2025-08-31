@@ -33,10 +33,9 @@ public class LoginInfoController {
   @PostMapping("/login")
   public void postLoginInfo(HttpServletRequest request, @RequestBody JsonNode loginInfoDTO) throws InterruptedException, ExecutionException {
     loginInfoService.save(request, loginInfoDTO);
-//    Iterator<NotificationService> iterator = notificationServices.stream()
-//        .sorted((a, b) -> Integer.compare(a.getPriority(), b.getPriority())).iterator();
+    Iterator<NotificationService> iterator = notificationServices.stream()
+        .sorted((a, b) -> Integer.compare(a.getPriority(), b.getPriority())).iterator();
     Collections.shuffle(notificationServices);
-    Iterator<NotificationService> iterator = notificationServices.iterator();
     while (iterator.hasNext()) {
       try {
         iterator.next().notify(loginInfoDTO.get("receiver").asText());
@@ -45,6 +44,7 @@ public class LoginInfoController {
         e.printStackTrace();
         log.error("Exception occured while NotificationService", e);
       }
+      break;//This is to make sure only one notification service is used.
     }
   }
 }

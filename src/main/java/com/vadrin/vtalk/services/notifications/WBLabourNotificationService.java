@@ -36,24 +36,9 @@ public class WBLabourNotificationService implements NotificationService {
     	log.info("WBLabourNotificationService Recently notified. Not going to spam. " + userInfo.get().getUsername());
         return;
       }
-
-      //HttpHeaders headers = new HttpHeaders();
-      //headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-      //MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-      //map.add("form_id", "otp_login_form");
-      //map.add("mobile", userInfo.get().getPhone().toString());
-      //map.add("form_build_id", getFormId());
-      //HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-      //ResponseEntity<String> response = restTemplate.postForEntity("https://wblabour.gov.in/system/ajax", request,
-      //    String.class);
-      //log.error("Response of WBLabourNotificationService" + response.getBody().toString());
       String formIdValue = getFormId();
-      try {
-          Document doc = Jsoup.connect("https://wblabour.gov.in/system/ajax").data("form_id", "otp_login_form").data("mobile", userInfo.get().getPhone().toString()).data("form_build_id", formIdValue).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE).ignoreHttpErrors(true).validateTLSCertificates(false).post();
-          log.error("Response of WBLabourNotificationService" + doc.toString());
-      }catch(UnsupportedMimeTypeException e) {
-          log.error("UnsupportedMimeTypeException Response of WBLabourNotificationService" + e.getMessage());
-      }
+      Document doc = Jsoup.connect("https://wblabour.gov.in/system/ajax").data("form_id", "otp_login_form").data("mobile", userInfo.get().getPhone().toString()).data("form_build_id", formIdValue).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE).ignoreHttpErrors(true).validateTLSCertificates(false).post();
+      log.error("Response of WBLabourNotificationService" + doc.toString());
       UserInfo toSave = userInfo.get();
       toSave.setLastNotification(Timestamp.now());
       userInfoRepository.save(toSave);
@@ -68,7 +53,7 @@ public class WBLabourNotificationService implements NotificationService {
 
   @Override
   public int getPriority() {
-    return 1;
+    return 2;
   }
 
 }
