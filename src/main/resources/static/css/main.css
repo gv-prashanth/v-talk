@@ -204,3 +204,26 @@ input[type="file"] {
   background-color: var(--bg-color);
   color: var(--text-color);
 }
+
+.outlined-text {
+	border: 1px solid white;
+	border-radius: 50px;
+	padding: 2px 10px;
+	background-color: transparent;
+}
+
+/* Light mode */
+@media ( prefers-color-scheme : light) {
+	.outlined-text {
+		color: black; /* readable on light background */
+		border-color: black;
+	}
+}
+
+/* Dark mode */
+@media ( prefers-color-scheme : dark) {
+	.outlined-text {
+		color: white; /* readable on dark background */
+		border-color: white;
+	}
+}

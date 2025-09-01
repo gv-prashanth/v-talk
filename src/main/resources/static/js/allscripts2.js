@@ -138,7 +138,7 @@ function printResp(resp) {
 			}
 			globalLastPullChatId = resp[i].createdOn.seconds;
 		}
-		document.getElementById("catalog").innerHTML += '<div class="square" style="float: left;background-color: white" id="extraSpaceBelow"> <div class="repoDesc"> <p> <b> </b> <br> </p> </div> <div style="float:right;"><p></p></div> </div>';
+		document.getElementById("catalog").innerHTML += '<div class="square" style="float: left" id="extraSpaceBelow"> <div class="repoDesc"> <p> <b> </b> <br> </p> </div> <div style="float:right;"><p></p></div> </div>';
 	}
 }
 
@@ -154,7 +154,7 @@ function replyTo(usr, mssg){
 
 function postProcess(mssg, sender){
 	if(mssg.includes(' ||-> ')){
-		mssg = mssg.replace('|| ', '<span style=\'background-color:white;border-radius: 50px;padding: 2px 10px 2px 10px;\'>');
+		mssg = mssg.replace('|| ', '<span class=\'outlined-text\'>');
 		mssg = mssg.replace(' ||-> ', '</span><br><br>'+'<b>' + sender + '</b>: ');
 	}else{
 		mssg = '<b>' + sender + '</b>: ' + mssg;
