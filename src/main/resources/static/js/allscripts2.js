@@ -79,9 +79,9 @@ function sendImage(imageBase64, myData) {
 		xmlhttp.open("POST", "/v2/chats");
 		xmlhttp.setRequestHeader("Content-Type", "application/json");
 		xmlhttp.onreadystatechange = function() {
+			document.getElementById("send").disabled = false;
 			if (this.readyState == 4 && this.status == 200) {
 				window.stop();
-				document.getElementById("send").disabled = false;
 				populateChatContainer();
 			}
 		};
@@ -179,10 +179,10 @@ function send() {
 		xmlhttp.open("POST", "/v2/chats");
 		xmlhttp.setRequestHeader("Content-Type", "application/json");
 		xmlhttp.onreadystatechange = function() {
+			document.getElementById("send").disabled = false;
 			if (this.readyState == 4 && this.status == 200) {
 				window.stop();
 				populateChatContainer();
-				document.getElementById("send").disabled = false;
 				document.getElementById("send").value = '';
 				document.getElementById("send").focus();
 				globalReply = '';
